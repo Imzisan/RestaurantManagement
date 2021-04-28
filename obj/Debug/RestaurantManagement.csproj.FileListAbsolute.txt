@@ -1,0 +1,16 @@
+E:\Project C# Final\RestaurantManagement\bin\Debug\RestaurantManagement.exe.config
+E:\Project C# Final\RestaurantManagement\bin\Debug\RestaurantManagement.exe
+E:\Project C# Final\RestaurantManagement\bin\Debug\RestaurantManagement.pdb
+E:\Project C# Final\RestaurantManagement\bin\Debug\MetroFramework.Design.dll
+E:\Project C# Final\RestaurantManagement\bin\Debug\MetroFramework.dll
+E:\Project C# Final\RestaurantManagement\bin\Debug\MetroFramework.Fonts.dll
+E:\Project C# Final\RestaurantManagement\obj\Debug\RestaurantManagement.csprojAssemblyReference.cache
+E:\Project C# Final\RestaurantManagement\obj\Debug\RestaurantManagement.FormLogin.resources
+E:\Project C# Final\RestaurantManagement\obj\Debug\RestaurantManagement.Properties.Resources.resources
+E:\Project C# Final\RestaurantManagement\obj\Debug\RestaurantManagement.csproj.GenerateResource.cache
+E:\Project C# Final\RestaurantManagement\obj\Debug\RestaurantManagement.csproj.CoreCompileInputs.cache
+E:\Project C# Final\RestaurantManagement\obj\Debug\RestaurantManagement.csproj.CopyComplete
+E:\Project C# Final\RestaurantManagement\obj\Debug\RestaurantManagement.exe
+E:\Project C# Final\RestaurantManagement\obj\Debug\RestaurantManagement.pdb
+E:\Project C# Final\RestaurantManagement\obj\Debug\RestaurantManagement.FormEmp.resources
+E:\Project C# Final\RestaurantManagement\obj\Debug\RestaurantManagement.FormAdmin.resources
