@@ -91,7 +91,7 @@
             this.txtUserId.CustomButton.UseSelectable = true;
             this.txtUserId.CustomButton.Visible = false;
             this.txtUserId.Lines = new string[] {
-        "ad-1111"};
+        "u-001"};
             this.txtUserId.Location = new System.Drawing.Point(195, 131);
             this.txtUserId.MaxLength = 32767;
             this.txtUserId.Name = "txtUserId";
@@ -103,7 +103,7 @@
             this.txtUserId.ShortcutsEnabled = true;
             this.txtUserId.Size = new System.Drawing.Size(170, 21);
             this.txtUserId.TabIndex = 10;
-            this.txtUserId.Text = "ad-1111";
+            this.txtUserId.Text = "u-001";
             this.txtUserId.UseSelectable = true;
             this.txtUserId.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.txtUserId.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
