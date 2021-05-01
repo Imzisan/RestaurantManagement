@@ -54,7 +54,21 @@ namespace RestaurantManagement
                 MessageBox.Show("Error: " + exc.Message);
             }
         }
+        private void PopulateSalesInfoGridView(string sql = "select * from OrderInfo")
+        {
+            try
+            {
+                DataSet ds = this.Da.ExecuteQuery(sql);
 
+                this.dgvViewSales.AutoGenerateColumns = false;
+                this.dgvViewSales.DataSource = ds.Tables[0];
+
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show("Error: " + exc.Message);
+            }
+        }
         private void BtnFoodInfo_Click(object sender, EventArgs e)
         {
             this.PopulateGridView();
@@ -146,6 +160,10 @@ namespace RestaurantManagement
 
             this.txtSearch.Text = "";
             this.txtAutoSearch.Text = "";
+            this.txtQuantity.Value = 0;
+            this.txtTotal.Text = "";
+            
+
 
             //this.txtId.ReadOnly = false;
         }
@@ -240,7 +258,7 @@ namespace RestaurantManagement
                     {
                         MessageBox.Show("User updatation Failed.");
                     }
-
+                  
                 }
                 else
                 {
@@ -309,6 +327,127 @@ namespace RestaurantManagement
             {
                 MessageBox.Show("Error: " + exc.Message);
             }
+        }
+
+        internal int c, total = 0;
+
+        private void BtnAddToCart_Click(object sender, EventArgs e)
+        {
+            
+                if(txtTotal.Text !="0" && txtTotal.Text !="")
+                {
+                    c = this.dgvOrderInfo.Rows.Add();
+                    this.dgvOrderInfo.Rows[c].Cells[0].Value = this.txtFoodName.Text;
+                    this.dgvOrderInfo.Rows[c].Cells[1].Value = this.txtPrice.Text;
+                    this.dgvOrderInfo.Rows[c].Cells[2].Value = this.txtQuantity.Text;
+                    this.dgvOrderInfo.Rows[c].Cells[3].Value = this.txtTotal.Text;
+
+                    total += int.Parse(this.txtTotal.Text);
+                    lblGrandTotal.Text = "Tk." + total;
+                }
+            else
+            {
+                MessageBox.Show("Enter Quantity Please");
+            }
+
+            this.txtQuantity.Value = 0;
+            this.txtTotal.Text = "";
+
+        }
+
+
+        int amount;
+        private void DgvOrderInfo_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+
+                amount = int.Parse(dgvOrderInfo.Rows[e.RowIndex].Cells[3].Value.ToString());
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show("Error: " + exc.Message);
+            }
+
+        }
+
+        private void BtnRemove_Click(object sender, EventArgs e)
+        {
+
+
+            try
+            {
+
+                this.dgvOrderInfo.Rows.RemoveAt(this.dgvOrderInfo.SelectedRows[0].Index);
+            }
+            catch 
+            {
+                MessageBox.Show("Please click on a row first to remove");
+            }
+            total -= amount;
+            this.lblGrandTotal.Text = "Tk." + total;
+            this.ClearContent();
+           
+        }
+
+        private void BtnPlaceOrder_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string sql = "insert into OrderInfo values('" + this.dtpTodayDate.Text + "', '" + this.lblGrandTotal.Text + "'); ";
+
+                int count = this.Da.ExecuteDML(sql);
+
+                if (count == 1)
+                {
+                    MessageBox.Show("Order Placed");
+                }
+                else
+                {
+                    MessageBox.Show("Order Placing Failed Please Re-order");
+                }
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show("Error: " + exc.Message);
+            }
+            this.ClearContent();
+            this.lblGrandTotal.Text = "Tk.";
+            while (dgvOrderInfo.Rows.Count > 0)
+            {
+               this.dgvOrderInfo.Rows.RemoveAt(this.dgvOrderInfo.SelectedRows[0].Index);
+            }
+
+        }
+
+        private void BtnShowSales_Click(object sender, EventArgs e)
+        {
+            this.PopulateSalesInfoGridView();
+        }
+
+        private void TxtQuantity_ValueChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (String.IsNullOrEmpty(this.txtFoodId.Text) || String.IsNullOrEmpty(this.txtFoodName.Text) ||
+                String.IsNullOrEmpty(this.txtFoodType.Text) || String.IsNullOrEmpty(this.txtPrice.Text))
+
+                {
+                    MessageBox.Show("Please select food items before increasing quantity");
+                    return;
+                    
+                }
+
+                int quan = int.Parse(this.txtQuantity.Value.ToString());
+                int price = int.Parse(this.txtPrice.Text);
+                this.txtTotal.Text = (quan * price).ToString();
+              
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show("Error: " + exc.Message);
+            }
+
         }
     }
 }
