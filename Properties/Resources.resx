@@ -124,4 +124,7 @@
   <data name="save-icon-36524" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\save-icon-36524.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="nick-karvounis-Ciqxn7FE4vE-unsplash" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\nick-karvounis-Ciqxn7FE4vE-unsplash.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

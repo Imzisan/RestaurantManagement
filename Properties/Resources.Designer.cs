@@ -73,6 +73,16 @@ namespace RestaurantManagement.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap nick_karvounis_Ciqxn7FE4vE_unsplash {
+            get {
+                object obj = ResourceManager.GetObject("nick-karvounis-Ciqxn7FE4vE-unsplash", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap save_icon_36524 {
             get {
                 object obj = ResourceManager.GetObject("save-icon-36524", resourceCulture);

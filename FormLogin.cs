@@ -3,20 +3,22 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MetroFramework.Forms;
+using System.Data.SqlClient;
 
 namespace RestaurantManagement
 {
     public partial class FormLogin : MetroForm
     {
+        private DataAccess Da { get; set; }
         public FormLogin()
         {
             InitializeComponent();
+            this.Da = new DataAccess();
         }
 
         private void BtnLogin_Click(object sender, EventArgs e)
@@ -24,13 +26,7 @@ namespace RestaurantManagement
             try
             {
                 string sql = "select * from UserInfo where UserId = '" + this.txtUserId.Text + "' and Password = '" + this.txtPassword.Text + "';";
-
-                SqlConnection sqlCon = new SqlConnection(@"Data Source=DESKTOP-M8FKIN1;Initial Catalog=RestaurantManagement;Persist Security Info=True;User ID=sa;Password=1110244718");
-                sqlCon.Open();
-                SqlCommand sqlCom = new SqlCommand(sql, sqlCon);
-                SqlDataAdapter sdAdapter = new SqlDataAdapter(sqlCom);
-                DataSet ds = new DataSet();
-                sdAdapter.Fill(ds);
+                DataSet ds = this.Da.ExecuteQuery(sql);
 
                 if (ds.Tables[0].Rows.Count == 1)
                 {
@@ -56,7 +52,7 @@ namespace RestaurantManagement
                     MessageBox.Show("Login Invalid");
                  
                 }
-                sqlCon.Close();
+                
             }
             catch (Exception exc)
             {
@@ -68,6 +64,71 @@ namespace RestaurantManagement
         {
             this.txtUserId.Text = "";
             this.txtPassword.Clear();
+        }
+
+        private void BtnChangePassword_Click(object sender, EventArgs e)
+        {
+
+            try
+            {
+                string sql = "select * from UserInfo where UserId = '" + this.txtUserId.Text + "' and Password = '" + this.txtPassword.Text + "';";
+                DataSet ds = this.Da.ExecuteQuery(sql);
+                if (ds.Tables[0].Rows.Count == 1)
+                {
+                    MessageBox.Show("Please Enter Your New Password");
+                    this.panelChangePassword.Visible = true;
+                    this.txtUserId.ReadOnly = true;
+                    this.txtPassword.ReadOnly = true;
+
+                }
+                else
+                {
+                    MessageBox.Show("Id or Password Incorrect. Please Try Again. ");
+                }
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show("Error: " + exc.Message);
+            }
+        }
+
+        private void BtnConfirm_Click(object sender, EventArgs e)
+        {
+            //update password
+
+            try
+            {
+                string query = "update UserInfo set Password = '" + this.txtNewPassword.Text + "' where UserId = '" + this.txtUserId.Text + "';";
+                int count = this.Da.ExecuteDML(query);
+                int a = int.Parse(this.txtNewPassword.Text);
+                int b= int.Parse(this.txtConfirmPassword.Text);
+                if (count == 1 && a==b  )
+                {
+                    
+                    MessageBox.Show("Password updated");
+                }
+                else
+                {
+                    MessageBox.Show("Password updatation Failed. Try again ");
+                }
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show("Error: " + exc.Message);
+            }
+            this.panelChangePassword.Visible = false;
+            this.txtUserId.ReadOnly = false;
+            this.txtPassword.ReadOnly = false;
+            this.txtNewPassword.Text = "";
+            this.txtConfirmPassword.Text = "";
+
+        }
+
+        private void BtnCancel_Click(object sender, EventArgs e)
+        {
+            this.panelChangePassword.Visible = false;
+            this.txtNewPassword.Text = "";
+            this.txtConfirmPassword.Text = "";
         }
     }
 }

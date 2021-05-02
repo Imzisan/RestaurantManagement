@@ -102,23 +102,23 @@ namespace RestaurantManagement
                 var dt = this.Da.ExecuteQueryTable(query);
                 if (dt.Rows.Count == 1)
                 {
-                    //Update
+                    //Update Food Info's
                     string sql = "update FoodInfo set FoodName = '" + this.txtFoodName.Text + "',FoodType = '" + this.txtFoodType.Text + "',Price = " + this.txtPrice.Text + " where FoodId = '" + this.txtFoodId.Text + "'; ";
                     int count = this.Da.ExecuteDML(sql);
 
                     if (count == 1)
                     {
-                        MessageBox.Show("Data updated");
+                        MessageBox.Show("Food Menu updated");
                     }
                     else
                     {
-                        MessageBox.Show("Data updatation Failed.");
+                        MessageBox.Show("Food Menu updatation Failed.");
                     }
 
                 }
                 else
                 {
-                    //Insert
+                    //Insert Food Info's
                     string sql = "insert into FoodInfo values ('" + this.txtFoodId.Text + "','" + this.txtFoodName.Text + "','" +
                                this.txtFoodType.Text + "','" + this.txtPrice.Text + "');";
 
@@ -126,11 +126,11 @@ namespace RestaurantManagement
 
                     if (count == 1)
                     {
-                        MessageBox.Show("Data Inserted.");
+                        MessageBox.Show("New Food Item Inserted ");
                     }
                     else
                     {
-                        MessageBox.Show("Data Insertion Failed.");
+                        MessageBox.Show("Food Item Insertion Failed.");
                     }
                 }
 
@@ -151,7 +151,7 @@ namespace RestaurantManagement
             this.txtPrice.Text = this.dgvFoodInfo.CurrentRow.Cells["Price"].Value.ToString();
 
         }
-        private void ClearContent()
+       private void ClearContent()
         {
             this.AutoIdGenerate();
             this.txtFoodType.Text = "";
@@ -162,10 +162,8 @@ namespace RestaurantManagement
             this.txtAutoSearch.Text = "";
             this.txtQuantity.Value = 0;
             this.txtTotal.Text = "";
-            
 
-
-            //this.txtId.ReadOnly = false;
+          
         }
         private void ClearUserContent()
         {
@@ -207,6 +205,7 @@ namespace RestaurantManagement
         {
             try
             {
+                //Delete Food Info's
                 var id = this.dgvFoodInfo.CurrentRow.Cells["FoodId"].Value.ToString();
                 var Name = this.dgvFoodInfo.CurrentRow.Cells["FoodName"].Value.ToString();
 
@@ -219,7 +218,7 @@ namespace RestaurantManagement
                 }
                 else
                 {
-                    MessageBox.Show("Data Deletion Failed.");
+                    MessageBox.Show("Deletion Failed . Please Try Again. ");
                 }
 
                 this.PopulateGridView();
@@ -238,7 +237,7 @@ namespace RestaurantManagement
                 String.IsNullOrEmpty(this.txtRole.Text) )
 
                 {
-                    MessageBox.Show("To add Items please fill all the information.");
+                    MessageBox.Show("To add Items please fill all the informations.");
                     return;
                 }
 
@@ -246,13 +245,14 @@ namespace RestaurantManagement
                 var dt = this.Da.ExecuteQueryTable(query);
                 if (dt.Rows.Count == 1)
                 {
-                    //Update
+                    //Update User
                     string sql = "update UserInfo set Password = '"+this.txtUserPassword.Text+"',Role = '"+ this.txtRole.Text +"'where UserId = '"+this.txtUserId.Text+"'; ";
                     int count = this.Da.ExecuteDML(sql);
 
                     if (count == 1)
                     {
                         MessageBox.Show("User updated");
+                      
                     }
                     else
                     {
@@ -262,7 +262,7 @@ namespace RestaurantManagement
                 }
                 else
                 {
-                    //Insert
+                    //Insert User
                     string sql = "insert into UserInfo values('"+this.txtUserId.Text+"', '"+this.txtUserPassword.Text+"', '"+this.txtRole.Text+"'); ";
 
                     int count = this.Da.ExecuteDML(sql);
@@ -306,6 +306,7 @@ namespace RestaurantManagement
         {
             try
             {
+                //Delete User
                 var id = this.dgvUserInfo.CurrentRow.Cells["Id"].Value.ToString();
                 
 
@@ -318,7 +319,7 @@ namespace RestaurantManagement
                 }
                 else
                 {
-                    MessageBox.Show("Data Deletion Failed.");
+                    MessageBox.Show("User Deletion Failed.");
                 }
 
                 this.PopulateUserInfoGridView();
@@ -334,16 +335,16 @@ namespace RestaurantManagement
         private void BtnAddToCart_Click(object sender, EventArgs e)
         {
             
-                if(txtTotal.Text !="0" && txtTotal.Text !="")
+                if(this.txtTotal.Text !="0" && this.txtTotal.Text !="")
                 {
                     c = this.dgvOrderInfo.Rows.Add();
-                    this.dgvOrderInfo.Rows[c].Cells[0].Value = this.txtFoodName.Text;
-                    this.dgvOrderInfo.Rows[c].Cells[1].Value = this.txtPrice.Text;
-                    this.dgvOrderInfo.Rows[c].Cells[2].Value = this.txtQuantity.Text;
-                    this.dgvOrderInfo.Rows[c].Cells[3].Value = this.txtTotal.Text;
+                    this.dgvOrderInfo.Rows[c].Cells["ItemName"].Value = this.txtCartFoodName.Text;
+                    this.dgvOrderInfo.Rows[c].Cells["UnitPrice"].Value = this.txtCartPrice.Text;
+                    this.dgvOrderInfo.Rows[c].Cells["Quantity"].Value = this.txtQuantity.Text;
+                    this.dgvOrderInfo.Rows[c].Cells["TotalPrice"].Value = this.txtTotal.Text;
 
                     total += int.Parse(this.txtTotal.Text);
-                    lblGrandTotal.Text = "Tk." + total;
+                    this.lblGrandTotal.Text = "Tk." + total;
                 }
             else
             {
@@ -361,8 +362,7 @@ namespace RestaurantManagement
         {
             try
             {
-
-                amount = int.Parse(dgvOrderInfo.Rows[e.RowIndex].Cells[3].Value.ToString());
+                amount = int.Parse(dgvOrderInfo.Rows[e.RowIndex].Cells["TotalPrice"].Value.ToString());
             }
             catch (Exception exc)
             {
@@ -377,13 +377,13 @@ namespace RestaurantManagement
 
             try
             {
-
                 this.dgvOrderInfo.Rows.RemoveAt(this.dgvOrderInfo.SelectedRows[0].Index);
             }
             catch 
             {
                 MessageBox.Show("Please click on a row first to remove");
             }
+            
             total -= amount;
             this.lblGrandTotal.Text = "Tk." + total;
             this.ClearContent();
@@ -394,6 +394,7 @@ namespace RestaurantManagement
         {
             try
             {
+                //Place Order
                 string sql = "insert into OrderInfo values('" + this.dtpTodayDate.Text + "', '" + this.lblGrandTotal.Text + "'); ";
 
                 int count = this.Da.ExecuteDML(sql);
@@ -413,7 +414,7 @@ namespace RestaurantManagement
             }
             this.ClearContent();
             this.lblGrandTotal.Text = "Tk.";
-            while (dgvOrderInfo.Rows.Count > 0)
+            while (this.dgvOrderInfo.Rows.Count > 0)
             {
                this.dgvOrderInfo.Rows.RemoveAt(this.dgvOrderInfo.SelectedRows[0].Index);
             }
@@ -425,12 +426,20 @@ namespace RestaurantManagement
             this.PopulateSalesInfoGridView();
         }
 
+        private void DgvFoodInfo_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            this.txtCartFoodId.Text = this.dgvFoodInfo.CurrentRow.Cells["FoodId"].Value.ToString();
+            this.txtCartFoodName.Text = this.dgvFoodInfo.CurrentRow.Cells["FoodName"].Value.ToString();
+            this.txtCartFoodType.Text = this.dgvFoodInfo.CurrentRow.Cells["FoodType"].Value.ToString();
+            this.txtCartPrice.Text = this.dgvFoodInfo.CurrentRow.Cells["Price"].Value.ToString();
+        }
+
         private void TxtQuantity_ValueChanged(object sender, EventArgs e)
         {
             try
             {
-                if (String.IsNullOrEmpty(this.txtFoodId.Text) || String.IsNullOrEmpty(this.txtFoodName.Text) ||
-                String.IsNullOrEmpty(this.txtFoodType.Text) || String.IsNullOrEmpty(this.txtPrice.Text))
+                if (String.IsNullOrEmpty(this.txtCartFoodId.Text) || String.IsNullOrEmpty(this.txtCartFoodName.Text) ||
+                String.IsNullOrEmpty(this.txtCartFoodType.Text) || String.IsNullOrEmpty(this.txtCartPrice.Text))
 
                 {
                     MessageBox.Show("Please select food items before increasing quantity");
@@ -439,7 +448,7 @@ namespace RestaurantManagement
                 }
 
                 int quan = int.Parse(this.txtQuantity.Value.ToString());
-                int price = int.Parse(this.txtPrice.Text);
+                int price = int.Parse(this.txtCartPrice.Text);
                 this.txtTotal.Text = (quan * price).ToString();
               
             }

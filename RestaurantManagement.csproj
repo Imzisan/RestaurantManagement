@@ -88,6 +88,9 @@
     <EmbeddedResource Include="FormEmp.resx">
       <DependentUpon>FormEmp.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormGm.resx">
+      <DependentUpon>FormGm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormLogin.resx">
       <DependentUpon>FormLogin.cs</DependentUpon>
     </EmbeddedResource>
@@ -120,6 +123,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\save-icon-36524.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\nick-karvounis-Ciqxn7FE4vE-unsplash.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

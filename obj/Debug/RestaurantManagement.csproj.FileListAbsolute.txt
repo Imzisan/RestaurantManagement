@@ -14,3 +14,4 @@ E:\Project C# Final\RestaurantManagement\obj\Debug\RestaurantManagement.exe
 E:\Project C# Final\RestaurantManagement\obj\Debug\RestaurantManagement.pdb
 E:\Project C# Final\RestaurantManagement\obj\Debug\RestaurantManagement.FormEmp.resources
 E:\Project C# Final\RestaurantManagement\obj\Debug\RestaurantManagement.FormAdmin.resources
+E:\Project C# Final\RestaurantManagement\obj\Debug\RestaurantManagement.FormGm.resources

@@ -39,7 +39,7 @@ namespace RestaurantManagement
             set { this.ds = value; }
         }
 
-        //internal DataTable dt;
+      
 
         public DataAccess()
         {
@@ -54,18 +54,13 @@ namespace RestaurantManagement
 
         public DataSet ExecuteQuery(string sql)
         {
-            //try
-            //{
+           
             this.QueryText(sql);
             this.Sda = new SqlDataAdapter(this.Sqlcom);
             this.Ds = new DataSet();
             this.Sda.Fill(this.Ds);
             return this.Ds;
-            //}
-            //catch (Exception exc)
-            //{
-            //    return null;
-            //}
+          
         }
 
         public DataTable ExecuteQueryTable(string sql)
